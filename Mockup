@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalFlow AI – Pitch Deck für Anwalts-Partner</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #283548;
+            --accent-blue: #38bdf8;
+            --accent-gold: #f59e0b;
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Deck Container */
+        .deck-container {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 680px;
+            background-color: var(--bg-secondary);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-color);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Progress Bar */
+        .progress-bar-container {
+            width: 100%;
+            height: 4px;
+            background-color: var(--border-color);
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-gold));
+            width: 11.11%;
+            transition: width 0.3s ease;
+        }
+
+        /* Header / Brand */
+        .deck-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 16px;
+        }
+        .brand-logo span {
+            color: var(--accent-blue);
+        }
+
+        /* Slide Content Area */
+        .slide-stage {
+            flex: 1;
+            padding: 40px 48px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        .slide-tag {
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        h1 {
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        p.lead {
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            max-width: 850px;
+        }
+
+        /* Grid Cards */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .card-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card ul {
+            list-style: none;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        .card ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .card.highlight {
+            border-color: rgba(56, 189, 248, 0.4);
+            background: linear-gradient(180deg, rgba(56, 189, 248, 0.08) 0%, rgba(30, 41, 59, 1) 100%);
+        }
+
+        /* Mockup Containers */
+        .mockup-wrapper {
+            background: #111827;
+            border-radius: 12px;
+            border: 1px solid #374151;
+            padding: 20px;
+            font-family: monospace;
+            font-size: 13px;
+            color: #e5e7eb;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .phone-mockup {
+            max-width: 440px;
+            margin: 0 auto;
+            border: 3px solid #4b5563;
+            border-radius: 28px;
+            padding: 20px;
+            background: #030712;
+        }
+
+        .mic-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid #ef4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 16px auto;
+            color: #ef4444;
+            font-size: 20px;
+        }
+
+        /* Table Design */
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        .table-custom th {
+            background-color: var(--bg-card);
+            color: var(--accent-blue);
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 600;
+        }
+
+        .table-custom td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: #e2e8f0;
+        }
+
+        .table-custom tr:hover td {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .badge-green {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        /* Footer Controls */
+        .deck-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            border-top: 1px solid var(--border-color);
+            background-color: rgba(15, 23, 42, 0.5);
+        }
+
+        .slide-counter {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .btn-nav {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-nav:hover {
+            background-color: var(--accent-blue);
+            color: #0f172a;
+            border-color: var(--accent-blue);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .key-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .deck-container { min-height: auto; }
+            .slide-stage { padding: 24px; }
+            h1 { font-size: 28px; }
+            h2 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="deck-container">
+        <!-- Progress -->
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- Header -->
+        <div class="deck-header">
+            <div class="brand-logo">⚖️ LegalFlow <span>AI</span></div>
+            <div>Business & Partner Pitch Deck</div>
+        </div>
+
+        <!-- Slide Stage -->
+        <div class="slide-stage">
+
+            <!-- Slide 1: Title -->
+            <div class="slide active">
+                <span class="slide-tag">Executive Summary</span>
+                <h1>Skalierbare Kanzlei-Erstberatung mit KI & Anwalts-Freigabe</h1>
+                <p class="lead">
+                    Wie wir alltägliche Rechtsberatung (Mietrecht, Verkehrsunfälle, Verbraucherschutz) digitalisieren: 
+                    Mandanten sprechen frei ein, die KI strukturiert & verfasst den Entwurf – und der Anwalt prüft & siegelt in 3 Minuten bei <strong>600 €+ effektivem Stundensatz</strong>.
+                </p>
+                <div class="grid-3">
+                    <div class="card highlight">
+                        <div class="card-header">🚀 90% Zeiteinsparung</div>
+                        <p style="font-size:13px; color:var(--text-muted);">KI übernimmt Sachverhalt, Recherche und Brief-Erstellung komplett vor.</p>
+                    </div>
+                    <div class="card highlight">
+                        <div class="card-header">🛡️ 100% Haftungssicher</div>
+                        <p style="font-size:13px; color:var(--text-muted);">Human-in-the-Loop: Kein RDG-Risiko, volle anwaltliche Kontrolle.</p>
+                    </div>
+                    <div class="card highlight">
+                        <div class="card-header">💰 Skalierbarer Ertrag</div>
+                        <p style="font-size:13px; color:var(--text-muted);">Aus unrentablen 150 €/Std. werden über 600 €/Std. Reingewinn.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Problem -->
+            <div class="slide">
+                <span class="slide-tag">Markt-Ineffizienz</span>
+                <h2>Warum herkömmliche Erstberatung scheitert</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header" style="color:#ef4444;">❌ Das Mandanten-Problem</div>
+                        <ul>
+                            <li><strong>Schwellenangst:</strong> Kanzleien wirken einschüchternd, kompliziert und teuer.</li>
+                            <li><strong>Lange Wartezeiten:</strong> Erstberatungstermin oft erst in 1–2 Wochen.</li>
+                            <li><strong>Bagatell-Dilemma:</strong> Streitwerte von 200–800 € (Kaution, Mietminderung) lohnen die reguläre Kanzleigebühr nicht.</li>
+                            <li><strong>KI-Frust:</strong> ChatGPT & Co. bieten keine anwaltlich geprüfte Haftung.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" style="color:#ef4444;">❌ Das Kanzlei-Problem</div>
+                        <ul>
+                            <li><strong>Zeitfresser:</strong> 45–60 Minuten Aufwand für Sachverhalt, Aktenanlage und Schreiben.</li>
+                            <li><strong>Geringe Marge:</strong> Nach § 34 RVG oft nur 100–190 € Umsatz pro Fall.</li>
+                            <li><strong>Unorganisierter Input:</strong> Mandanten schicken chaotische Sprachnachrichten und unvollständige Dokumente.</li>
+                            <li><strong>Fehlende Skalierung:</strong> Arbeitszeit ist 1:1 an Umsatz gekoppelt.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Solution -->
+            <div class="slide">
+                <span class="slide-tag">Die Lösung</span>
+                <h2>LegalFlow AI: Human-in-the-Loop Triage</h2>
+                <p class="lead">Wir automatisieren die zeitraubende Fleißarbeit und belassen die hochwertige Entscheidung beim Anwalt.</p>
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-header">1. Voice Intake</div>
+                        <p style="font-size: 13px; color: #cbd5e1; line-height: 1.6;">
+                            Der Mandant spricht sein Anliegen ohne Juristendeutsch ins Handy. Whisper transkribiert und extrahiert präzise Daten, Fristen und Fakten.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">2. KI-Triage & RAG</div>
+                        <p style="font-size: 13px; color: #cbd5e1; line-height: 1.6;">
+                            Abgleich mit BGB, StVO und BGH-Urteilen. Die KI generiert automatisch einen <strong>Prüfvermerk</strong> sowie das fertige <strong>Musterschreiben</strong>.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">3. 1-Klick Freigabe</div>
+                        <p style="font-size: 13px; color: #cbd5e1; line-height: 1.6;">
+                            Der Anwalt sieht den Fall aufbereitet im Web-Cockpit. Nach kurzem Check (2–3 Min.) wird das PDF signiert und automatisch zugestellt.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Mockup Client App -->
+            <div class="slide">
+                <span class="slide-tag">Produkt-Erlebnis Mandant</span>
+                <h2>Simpel wie eine WhatsApp-Sprachnachricht</h2>
+                <div class="phone-mockup">
+                    <div style="text-align:center; font-weight:bold; margin-bottom:12px; color:var(--accent-blue);">LegalFlow Mobile Web</div>
+                    <p style="font-size:12px; text-align:center; color:var(--text-muted); margin-bottom:12px;">"Erzähl uns einfach, was passiert ist."</p>
+                    <div class="mic-btn">🎙️</div>
+                    <div style="text-align:center; font-size:11px; color:#ef4444; margin-bottom:12px;">● 01:24 min aufgenommen</div>
+                    <div style="background:#1f2937; border-radius:6px; padding:8px; font-size:11px; margin-bottom:12px;">
+                        📎 Angehängt: <em>Mietvertrag_2024.pdf, Schimmel_Wand.jpg</em>
+                    </div>
+                    <div style="border-top:1px solid #374151; padding-top:10px; font-size:11px;">
+                        <div style="color:var(--accent-gold); font-weight:bold;">Ausgewählt: Medium (79 €)</div>
+                        <div>Anwaltliche Prüfung + fertiges Musterschreiben</div>
+                    </div>
+                    <div style="background:var(--accent-blue); color:#0f172a; text-align:center; font-weight:bold; padding:8px; border-radius:6px; margin-top:10px; font-size:12px;">
+                        Jetzt prüfen lassen (Apple Pay / PayPal)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Mockup Lawyer Cockpit -->
+            <div class="slide">
+                <span class="slide-tag">Produkt-Erlebnis Anwalt</span>
+                <h2>Das 3-Minuten Anwalts-Cockpit</h2>
+                <div class="mockup-wrapper">
+                    <div style="display:flex; justify-content:space-between; border-bottom:1px solid #374151; padding-bottom:8px; margin-bottom:12px;">
+                        <span style="color:var(--accent-blue); font-weight:bold;">⚡ Fall #8492: Mietminderung Schimmel</span>
+                        <span style="color:var(--accent-gold);">● Bereit zur Freigabe</span>
+                    </div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; font-size:12px;">
+                        <div style="background:#1f2937; padding:12px; border-radius:6px;">
+                            <div style="color:var(--accent-blue); font-weight:bold; margin-bottom:6px;">📋 SACHVERHALT & FAKTEN</div>
+                            • Mieter: Max Mustermann<br>
+                            • Vermieter: ImmoCare GmbH<br>
+                            • Mangel: Schimmel Schlafzimmer (gemeldet 02.08.2026)<br>
+                            • Rechtslage: BGH VIII ZR 182/10 -> 15% Minderung begründet.<br>
+                            <span style="color:var(--accent-gold);">▶ Audio anhören (01:24 min)</span>
+                        </div>
+                        <div style="background:#1f2937; padding:12px; border-radius:6px;">
+                            <div style="color:var(--accent-green); font-weight:bold; margin-bottom:6px;">✍️ GENERIERTES SCHREIBEN (Editierbar)</div>
+                            <em>"Sehr geehrte Damen und Herren, hiermit zeige ich namens des Mieters die Mängelanzeige an..."</em><br><br>
+                            <span style="color:var(--text-muted);">[Textfeld voll bearbeitbar]</span>
+                        </div>
+                    </div>
+                    <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">
+                        <button style="background:#374151; color:#fff; border:none; padding:6px 12px; border-radius:4px; font-size:11px;">Korrektur</button>
+                        <button style="background:var(--accent-green); color:#fff; border:none; padding:6px 16px; border-radius:4px; font-size:11px; font-weight:bold;">✅ Freigeben & Signieren (1-Klick)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Business Model & Pricing -->
+            <div class="slide">
+                <span class="slide-tag">Unit Economics</span>
+                <h2>Tarife, Erlöse & Effektiver Stundensatz</h2>
+                <table class="table-custom">
+                    <thead>
+                        <tr>
+                            <th>Tarif</th>
+                            <th>Kundenpreis</th>
+                            <th>Leistung</th>
+                            <th>Zeitaufwand Anwalt</th>
+                            <th>Effektiver Stundensatz</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Light</strong></td>
+                            <td>39 €</td>
+                            <td>Chancen-Einschätzung + Handlungsempfehlung</td>
+                            <td>2–3 Min.</td>
+                            <td><span class="badge-green">~700 € / Std.</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Medium</strong></td>
+                            <td>79 €</td>
+                            <td>Prüfung + personalisiertes Musterschreiben</td>
+                            <td>5–7 Min.</td>
+                            <td><span class="badge-green">~625 € / Std.</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pro</strong></td>
+                            <td>179 €</td>
+                            <td>Offizieller Kanzleibrief an die Gegenseite</td>
+                            <td>15 Min.</td>
+                            <td><span class="badge-green">~675 € / Std.</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:16px;">
+                    💡 <strong>Rechenbeispiel:</strong> Bei 10 Fällen pro Tag benötigt der Anwalt nur ca. 45–60 Minuten täglich und erwirtschaftet <strong>15.000 € bis 20.000 € Monatsumsatz</strong>.
+                </p>
+            </div>
+
+            <!-- Slide 7: Legal Compliance -->
+            <div class="slide">
+                <span class="slide-tag">Rechtliche Absicherung</span>
+                <h2>100% Konformität mit Berufsrecht (BRAO / RDG)</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">⚖️ RDG & Mandatsstruktur</div>
+                        <ul>
+                            <li>Die Software-Plattform tritt rein als IT-Dienstleister auf.</li>
+                            <li>Der Rechtsberatungsvertrag entsteht direkt mit der Kanzlei (§ 3 RDG, § 59b BRAO).</li>
+                            <li>Vergütung als Pauschalhonorar nach § 34 RVG für außergerichtliche Beratung.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">🔒 Haftung & Berufsgeheimnis</div>
+                        <ul>
+                            <li><strong>Vertretungsausschluss:</strong> AGB schließen gerichtliche Folgeverfahren klar aus.</li>
+                            <li><strong>Verschwiegenheit (§ 203 StGB):</strong> KI-Infrastruktur mit Zero-Data-Retention und EU-Servern.</li>
+                            <li>Keine eigenständige KI-Rechtsberatung – Anwalt ist immer Gatekeeper.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Rollenverteilung -->
+            <div class="slide">
+                <span class="slide-tag">Partnerschaft</span>
+                <h2>Klare Rollenteilung: IT & Legal Excellence</h2>
+                <div class="grid-2">
+                    <div class="card highlight">
+                        <div class="card-header">💻 Dein IT- & Product-Part</div>
+                        <ul>
+                            <li>Entwicklung Web-Frontend & Mobile Voice-Intake.</li>
+                            <li>LLM-Prompt-Engineering, RAG-Pipeline & Whisper-Transkription.</li>
+                            <li>Entwicklung des Anwalts-Dashboards & Schnittstellen.</li>
+                            <li>Performance-Marketing, SEO & Payment-Infrastruktur (Stripe).</li>
+                        </ul>
+                    </div>
+                    <div class="card highlight">
+                        <div class="card-header">⚖️ Dein Kanzlei-Part</div>
+                        <ul>
+                            <li>Juristische Qualitätssicherung & Formulierungsmuster.</li>
+                            <li>Freigabe & Prüfung der eingehenden Fälle im Dashboard.</li>
+                            <li>Bereitstellung des Kanzlei-Rahmens & Haftungsabdeckung.</li>
+                            <li>Reputation als zugelassener Rechtsbeistand.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Next Steps -->
+            <div class="slide">
+                <span class="slide-tag">Roadmap</span>
+                <h2>Die nächsten Schritte zum gemeinsamen Launch</h2>
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-header">Phase 1: Prototyp</div>
+                        <p style="font-size:13px; color:#cbd5e1; line-height:1.6;">
+                            Entwicklung des Audio-Intake-Dummies und Test mit 10 realen Mietrechtsfällen zur KI-Feinabstimmung (2 Wochen).
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">Phase 2: Closed Beta</div>
+                        <p style="font-size:13px; color:#cbd5e1; line-height:1.6;">
+                            Anbindung von Stripe und Onboarding der Kanzlei für die ersten 50 echten Mandanten im Raum Mietrecht.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">Phase 3: Rollout</div>
+                        <p style="font-size:13px; color:#cbd5e1; line-height:1.6;">
+                            Skalierung über Google Ads / Social Media und Erweiterung um Verkehrsrecht & Fluggastrechte.
+                        </p>
+                    </div>
+                </div>
+                <div style="text-align:center; margin-top:30px;">
+                    <button class="btn-nav" style="background:var(--accent-blue); color:#0f172a; font-size:16px; padding:12px 28px;" onclick="goToSlide(0)">Zurück zum Anfang ↺</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="deck-footer">
+            <button class="btn-nav" id="prevBtn" onclick="changeSlide(-1)">❮ Zurück</button>
+            <div class="slide-counter">
+                Folie <span id="currentSlideNum">1</span> von <span id="totalSlidesNum">9</span>
+                <span class="key-hint">(Tastatur: ⬅️ ➡️)</span>
+            </div>
+            <button class="btn-nav" id="nextBtn" onclick="changeSlide(1)">Weiter ❯</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressBar = document.getElementById('progressBar');
+        const currentSlideNum = document.getElementById('currentSlideNum');
+        const totalSlidesNum = document.getElementById('totalSlidesNum');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        totalSlidesNum.textContent = totalSlides;
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            currentSlideNum.textContent = currentSlide + 1;
+            progressBar.style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+            updateSlide();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlide();
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        updateSlide();
+    </script>
+</body>
+</html>
